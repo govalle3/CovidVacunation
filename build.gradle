@@ -17,8 +17,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2' // Caracteristicas o configuracion (resource)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "junit:junit:4.12"
+	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.13.0'
 }
 
-test {
-	useJUnitPlatform()
-}

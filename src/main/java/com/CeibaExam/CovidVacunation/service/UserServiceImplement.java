@@ -18,6 +18,13 @@ public class UserServiceImplement implements UserService{
   @Autowired
   private UserBuilder userBuilder;
 
+  public UserServiceImplement(
+      UserRepository userRepository,
+      UserBuilder userBuilder) {
+    this.userRepository = userRepository;
+    this.userBuilder = userBuilder;
+  }
+
   @Override
   public Boolean save(User user) {  // debe ser la misma que esta en la interfaz o viceversa.
     if(userRepository.existsById(user.getNationalId())){
