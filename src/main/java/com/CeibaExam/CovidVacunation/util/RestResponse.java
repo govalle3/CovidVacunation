@@ -1,6 +1,7 @@
 package com.CeibaExam.CovidVacunation.util;
 
 public class RestResponse {
+
   private Integer responseCode;
   private String message;
 

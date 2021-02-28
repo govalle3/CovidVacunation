@@ -5,9 +5,7 @@ import com.CeibaExam.CovidVacunation.service.UserService;
 import com.CeibaExam.CovidVacunation.util.RestResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
@@ -37,7 +35,7 @@ public class UserController {
     if (this.userService.save(user)) {
       return new RestResponse(HttpStatus.OK.value(), "Successful transaction");
     }
-    return new RestResponse(HttpStatus.BAD_REQUEST.value());
+    return new RestResponse(HttpStatus.BAD_REQUEST.value(), "Existing user or User under age");
   }
 
   private boolean validate(User user) {
