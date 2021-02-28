@@ -1,5 +1,6 @@
 package com.CeibaExam.CovidVacunation.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class User {
@@ -7,6 +8,7 @@ public class User {
   private Long nationalId;
   private String firstName;
   private String lastName;
+  @JsonFormat(pattern="yyyy/MM/dd")
   private Date dob;
 
   public User(Long nationalId, String firstName, String lastName, Date dob) {
@@ -14,6 +16,9 @@ public class User {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dob = dob;
+  }
+
+  public User() {
   }
 
   public Long getNationalId() {

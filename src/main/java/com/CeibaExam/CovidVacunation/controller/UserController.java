@@ -5,6 +5,7 @@ import com.CeibaExam.CovidVacunation.service.UserService;
 import com.CeibaExam.CovidVacunation.util.RestResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
@@ -46,5 +47,11 @@ public class UserController {
       isValid = false;
     }
     return isValid;
+  }
+
+  @RequestMapping(value = "/findUsers", method = RequestMethod.GET)
+  public RestResponse findUsers() throws JsonParseException {
+    List<User> userList = this.userService.findAllUser();
+    return new RestResponse(HttpStatus.OK.value(),userList.toString());
   }
 }
