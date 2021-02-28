@@ -5,7 +5,9 @@ import com.CeibaExam.CovidVacunation.service.UserService;
 import com.CeibaExam.CovidVacunation.util.RestResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParseException;
 import org.springframework.http.HttpStatus;
@@ -24,26 +26,30 @@ public class UserController {
 
   @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
   public RestResponse saveOrUpdate(@RequestBody String userJson) throws JsonParseException,
-      IOException{
+      IOException {
     this.mapper = new ObjectMapper();
     User user = this.mapper.readValue(userJson, User.class);
-    if(!this.validate(user)){
+    if (!this.validate(user)) {
       return new RestResponse(HttpStatus.NOT_ACCEPTABLE.value(),
-          "Los campos obligatorios no estan diligenciados");
+          "The mandatory fields are not filled out");
     }
-    this.userService.save(user);
-    return new RestResponse(HttpStatus.OK.value(),"Operacion exitosa");
+
+    if (this.userService.save(user)) {
+      return new RestResponse(HttpStatus.OK.value(), "Successful transaction");
+    }
+    return new RestResponse(HttpStatus.BAD_REQUEST.value());
   }
-  private boolean validate(User user){
+
+  private boolean validate(User user) {
     boolean isValid = true;
 
-    if( user.getFirstName() == null){
+    if (user.getFirstName() == null) {
       isValid = false;
     }
-    if( user.getNationalId() == null){
+    if (user.getNationalId() == null) {
       isValid = false;
     }
-    if( user.getDob() == null){
+    if (user.getDob() == null) {
       isValid = false;
     }
     return isValid;
@@ -52,6 +58,7 @@ public class UserController {
   @RequestMapping(value = "/findUsers", method = RequestMethod.GET)
   public RestResponse findUsers() throws JsonParseException {
     List<User> userList = this.userService.findAllUser();
-    return new RestResponse(HttpStatus.OK.value(),userList.toString());
+    return new RestResponse(HttpStatus.OK.value(), userList.toString());
   }
+
 }

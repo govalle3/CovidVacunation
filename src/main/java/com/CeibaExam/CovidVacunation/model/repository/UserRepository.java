@@ -12,4 +12,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
   @Override
   List<UserEntity> findAll();
+
+  @Override
+  boolean existsById(Long aLong);
 }
