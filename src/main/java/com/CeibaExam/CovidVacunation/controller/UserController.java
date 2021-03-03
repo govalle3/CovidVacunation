@@ -54,9 +54,8 @@ public class UserController {
   }
 
   @RequestMapping(value = "/findUsers", method = RequestMethod.GET)
-  public RestResponse findUsers() throws JsonParseException {
-    List<User> userList = this.userService.findAllUser();
-    return new RestResponse(HttpStatus.OK.value(), userList.toString());
+  public List<User> findUsers() throws JsonParseException {
+    return this.userService.findAllUser();
   }
 
 }

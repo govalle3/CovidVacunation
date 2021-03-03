@@ -8,7 +8,7 @@ public class User {
   private Long nationalId;
   private String firstName;
   private String lastName;
-  @JsonFormat(pattern="yyyy/MM/dd")
+  @JsonFormat(pattern="yyyy-MM-dd")
   private Date dob;
 
   public User(Long nationalId, String firstName, String lastName, Date dob) {
